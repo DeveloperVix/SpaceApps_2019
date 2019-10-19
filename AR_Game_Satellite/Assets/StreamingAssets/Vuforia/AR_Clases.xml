@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
-  <Tracking>
-    <ImageTarget name="heart" size="2.000000 1.407273" />
-    <ImageTarget name="unitylogo" size="12.000000 6.750000" />
-  </Tracking>
+<QCARConfig>
+    <Tracking>
+        <ImageTarget name="steve" size="10.000000 12.350000"/>
+        <ImageTarget name="mona" size="10.000000 12.350000"/>
+        <ImageTarget name="che" size="10.000000 12.350000"/>
+        <ImageTarget name="heart" size="2.000000 1.407273"/>
+        <ImageTarget name="unitylogo" size="12.000000 6.750000"/>
+        <ImageTarget name="caja.Right" size="1.000000 0.996109"/>
+        <ImageTarget name="caja.Back" size="1.000000 0.996109"/>
+        <ImageTarget name="caja.Front" size="1.000000 0.996109"/>
+        <ImageTarget name="caja.Bottom" size="1.000000 0.996109"/>
+        <ImageTarget name="caja.Top" size="1.000000 0.996109"/>
+        <ImageTarget name="caja.Left" size="1.000000 0.996109"/>
+        <ImageTarget name="maincra.Right" size="1.000000 1.000000"/>
+        <ImageTarget name="maincra.Back" size="1.000000 1.000000"/>
+        <ImageTarget name="maincra.Front" size="1.000000 1.000000"/>
+        <ImageTarget name="maincra.Bottom" size="1.000000 1.000000"/>
+        <ImageTarget name="maincra.Top" size="1.000000 1.000000"/>
+        <ImageTarget name="maincra.Left" size="1.000000 1.000000"/>
+        <MultiTarget name="caja">
+            <Part name="caja.Left" translation="-0.5 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="caja.Right" translation="0.5 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="caja.Front" translation="0 0 0.5" rotation="AD: 1 0 0 0"/>
+            <Part name="caja.Back" translation="0 0 -0.5" rotation="AD: 0 1 0 180"/>
+            <Part name="caja.Top" translation="0 0.5 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="caja.Bottom" translation="0 -0.5 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
+        <MultiTarget name="maincra">
+            <Part name="maincra.Left" translation="-0.5 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="maincra.Right" translation="0.5 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="maincra.Front" translation="0 0 0.5" rotation="AD: 1 0 0 0"/>
+            <Part name="maincra.Back" translation="0 0 -0.5" rotation="AD: 0 1 0 180"/>
+            <Part name="maincra.Top" translation="0 0.5 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="maincra.Bottom" translation="0 -0.5 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
+    </Tracking>
 </QCARConfig>
