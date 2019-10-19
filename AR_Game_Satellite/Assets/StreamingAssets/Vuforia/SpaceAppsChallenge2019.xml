@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="propulsionModule" size="1.000000 1.597973" />
+    <ImageTarget name="container" size="1.000000 1.600677" />
+    <ImageTarget name="antenna" size="1.000000 1.597973" />
+    <ImageTarget name="rightArm" size="1.000000 1.600677" />
+    <ImageTarget name="leftArm" size="1.000000 1.597973" />
+  </Tracking>
+</QCARConfig>

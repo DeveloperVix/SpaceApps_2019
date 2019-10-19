@@ -31,24 +31,31 @@ public class GM_ARGame : MonoBehaviour
 
         //obtener de forma aleatoria la primera carta y aniadirla a la lista de
         //targets ordenados
-        int rand = Random.Range(0, theTargets.Count);
-        GameObject targetSelected = theTargets[rand];
-        Debug.LogError("Tarjeta seleccionada: " + targetSelected.name);
 
-        int times = 2;
-        while (times > 0)
+
+        int twice = 2;
+        for (int i = 0; i < theTargets.Count; i++)
         {
             //Elegir de forma aleatoria cualquiera de sus colliders hijos para
             //establecer cual de ellos hara match
-            int randCol = Random.Range(0, targetSelected.transform.childCount);
-            if(!targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().match)
+            while(twice > 0)
             {
-                Debug.LogError("Colisionador seleccionado: " + randCol);
-                targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().match = true;
-                times--;
+                int randCol = Random.Range(0, 4);
+                if (!theTargets[i].transform.GetChild(randCol).GetComponent<MatchAttributes>().match)
+                {
+                    Debug.LogError("Colisionador seleccionado: " + randCol);
+                    theTargets[i].transform.GetChild(randCol).GetComponent<MatchAttributes>().match = true;
+                    twice--;
+                }
             }
-            
+            twice = 2;
+
         }
+
+
+        int rand = Random.Range(0, theTargets.Count);
+        GameObject targetSelected = theTargets[rand];
+        Debug.LogError("Tarjeta seleccionada: " + targetSelected.name);
         orderedTargets.Add(targetSelected);
         theTargets.Remove(targetSelected);
 
@@ -60,54 +67,65 @@ public class GM_ARGame : MonoBehaviour
 
         bool checkOtherCard = true;
         int cardsMatched = 0;
+        int randColSelected = 0;
         while (checkOtherCard)
         {
-            if (cardsMatched == 5)
-                checkOtherCard = false;
-
-            rand = Random.Range(0, theTargets.Count);
-            targetSelected = theTargets[rand];
-            Debug.LogError("\nTarjeta seleccionada: " + targetSelected.name);
-
-            int randOredered = Random.Range(0, orderedTargets.Count);
-            GameObject orderTargetSelected = orderedTargets[randOredered];
-            Debug.LogError("Hare match con: " + orderTargetSelected.name);
-
-            for (int i = 0; i < orderTargetSelected.transform.childCount; i++)
+            if(theTargets.Count == 0)
             {
-                if(!orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().match)
-                {
-                    Debug.LogError("Hijo disponible de tarjeta ordenada");
-
-                    //Elegir de forma aleatoria cualquiera de sus colliders hijos para
-                    //establecer cual de ellos hara match
-                    int randCol = Random.Range(0, targetSelected.transform.childCount);
-                    if (!targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().match)
-                    {
-                        Debug.LogError("Colisionador seleccionado: " + randCol);
-                        targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().match = true;
-                        //times--;
-                    }
-
-
-                    orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName = targetSelected.name;
-
-                    orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().colMatchName = targetSelected.transform.GetChild(randCol).name;
-
-                    targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().parentName = orderTargetSelected.name;
-                    targetSelected.transform.GetChild(randCol).GetComponent<MatchAttributes>().colMatchName = orderTargetSelected.transform.GetChild(i).name;
-
-                    orderedTargets.Add(targetSelected);
-                    theTargets.Remove(targetSelected);
-
-                    cardsMatched++;
-                    i = orderTargetSelected.transform.childCount;
-                }
-                if(i == orderTargetSelected.transform.childCount-1)
-                {
-                    Debug.LogError("Ya estan ocupados todos los hijos");
-                }
+                checkOtherCard = false;
             }
+            else
+            {
+                rand = Random.Range(0, theTargets.Count);
+                targetSelected = theTargets[rand];
+                Debug.LogError("\nTarjeta seleccionada: " + targetSelected.name);
+
+                int randOredered = Random.Range(0, orderedTargets.Count);
+                GameObject orderTargetSelected = orderedTargets[randOredered];
+                Debug.LogError("Hare match con: " + orderTargetSelected.name);
+
+                for (int i = 0; i < orderTargetSelected.transform.childCount; i++)
+                {
+                    if (orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().match &&
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName == null)
+                    {
+                        Debug.LogError("Hijo disponible de tarjeta ordenada: "+ orderTargetSelected.transform.GetChild(i).name);
+
+                        bool untilDone = false;
+                        while(!untilDone)
+                        {
+                            //Elegir de forma aleatoria cualquiera de sus colliders hijos para
+                            //establecer cual de ellos hara match
+                            randColSelected = Random.Range(0, targetSelected.transform.childCount);
+                            
+                            if (!targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match)
+                            {
+                                Debug.LogError("Colisionador seleccionado: " + randColSelected);
+                                targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match = true;
+                                //times--;
+                                untilDone = true;
+                            }
+                        }
+
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName = targetSelected.name;
+
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().colMatchName = targetSelected.transform.GetChild(randColSelected).name;
+
+                        targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().parentName = orderTargetSelected.name;
+                        targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().colMatchName = orderTargetSelected.transform.GetChild(i).name;
+
+                        orderedTargets.Add(targetSelected);
+                        theTargets.Remove(targetSelected);
+
+                        cardsMatched++;
+                        i = orderTargetSelected.transform.childCount;
+                    }
+                    if (i == orderTargetSelected.transform.childCount - 1)
+                    {
+                        Debug.LogError("Ya estan ocupados todos los hijos");
+                    }
+                }
+            }  
         }
 
 
