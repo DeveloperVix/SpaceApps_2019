@@ -6,20 +6,28 @@ public class DetectionImg : MonoBehaviour
 {
     public MatchAttributes matchAttributes;
 
+    public string nameParent;
+
     private void Awake()
     {
         matchAttributes = gameObject.AddComponent<MatchAttributes>();
+        nameParent = transform.parent.name;
     }
 
     //We need to know when the part of the target is colliding with other image
     void OnTriggerEnter(Collider obj) 
     {
         //NOTE: is necessary to know if it is another image target
-        matchAttributes.colliding = true;
-        Debug.Log("Colisiono con: " + obj.gameObject.name);
-        GM_ARGame.Instance.curImgTargetContact.Add(obj.gameObject); //Add to the list of the obj
-        GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
-
+        if(obj.GetComponent<MatchAttributes>().parentName != null)
+        {
+            if(obj.GetComponent<MatchAttributes>().parentName == nameParent)
+            {
+                matchAttributes.colliding = true;
+                Debug.Log("Colisiono con: " + obj.gameObject.name);
+                GM_ARGame.Instance.curImgTargetContact.Add(obj.gameObject); //Add to the list of the obj
+                GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
+            } 
+        }
     }
 
     //If the targets stop colliding 

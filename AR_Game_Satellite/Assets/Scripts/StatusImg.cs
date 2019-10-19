@@ -8,6 +8,12 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
 
     public bool isDetected = false;
 
+    public MatchAttributes[] colliderChild;
+
+    [TextArea(4,15)]
+    public string txtInfo;
+
+
     protected TrackableBehaviour mTrackableBehaviour;
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
@@ -18,6 +24,8 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
+
+        colliderChild = GetComponentsInChildren<MatchAttributes>();
     }
 
     public void OnTrackableStateChanged(
@@ -36,6 +44,7 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             isDetected = true;
+            Debug.LogError("Siempre activo");
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
@@ -49,5 +58,19 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
             // Call OnTrackingLost() to hide the augmentations
             isDetected = false;
         }
+    }
+
+    public void HideText()
+    {
+        int totalCollision = 0;
+        for (int i = 0; i < colliderChild.Length; i++)
+        {
+            if(colliderChild[i].colliding)
+            {
+                totalCollision++;
+            }
+        }
+        Debug.LogError("Total de collisiones");
+
     }
 }

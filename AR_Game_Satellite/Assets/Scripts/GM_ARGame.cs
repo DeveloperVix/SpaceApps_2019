@@ -10,7 +10,7 @@ public class GM_ARGame : MonoBehaviour
     public static GM_ARGame Instance { get => instance;}
     #endregion
 
-    public TextMeshProUGUI txtDebug; //The text to show what object are colliding
+    public TextMeshProUGUI txtInfo; //The text to show the info
 
 
     public List<GameObject> curImgTargetContact; //The list of objects that are colliding
@@ -20,11 +20,15 @@ public class GM_ARGame : MonoBehaviour
 
     public List<GameObject> orderedTargets;
 
+    public MatchAttributes[] colliderChild;
+
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this; //Singleton
+
+        
 
         curImgTargetContact = new List<GameObject>();
         orderedTargets = new List<GameObject>();
@@ -142,12 +146,13 @@ public class GM_ARGame : MonoBehaviour
         //Ya tiene establecido
         //Escoger otra carta para hacer match
 
+        for (int i = 0; i < orderedTargets.Count; i++)
+        {
+           colliderChild = GetComponentsInChildren<MatchAttributes>();
 
+            orderedTargets[i].GetComponentsInChildren<MatchAttributes>();
+        }
 
-
-
-
-        txtDebug.gameObject.SetActive(false);
     }
 
 
@@ -155,19 +160,35 @@ public class GM_ARGame : MonoBehaviour
 
     public void TargetsCollision()
     {
-        txtDebug.gameObject.SetActive(true);
+        txtInfo.gameObject.SetActive(true);
         string nameTargets = "";
         for (int i = 0; i < curImgTargetContact.Count; i++)
         {
             nameTargets += curImgTargetContact[i].name;
         }
 
-        txtDebug.text = "Los targets que colisionan: " + nameTargets;
+        txtInfo.text = "Los targets que colisionan: " + nameTargets;
     }
 
     public void DisableText()
     {
-        txtDebug.text = "";
-        txtDebug.gameObject.SetActive(false);
+        txtInfo.text = "";
+        txtInfo.gameObject.SetActive(false);
+    }
+
+
+
+    public void HideText()
+    {
+        int totalCollision = 0;
+        for (int i = 0; i < colliderChild.Length; i++)
+        {
+            if (colliderChild[i].colliding)
+            {
+                totalCollision++;
+            }
+        }
+        Debug.LogError("Total de collisiones");
+
     }
 }
