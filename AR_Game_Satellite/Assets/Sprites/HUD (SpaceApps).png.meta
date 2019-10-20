@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: 89efebdcc996d4abb8a0121187732163
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7557879704207979911
+    second: StartBtn
+  - first:
+      213: -708192916512916048
+    second: HUD (SpaceApps)_0
+  - first:
+      213: 1187961194834725857
+    second: back
+  - first:
+      213: 521610478920628516
+    second: instructions
+  - first:
+      213: -8108685599131614378
+    second: ShowInfo
+  - first:
+      213: 6424794140563306534
+    second: background_Info
+  - first:
+      213: -6661618111903677853
+    second: Footer
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -83,6 +104,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -96,11 +129,158 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: StartBtn
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1142
+        width: 1800
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3729380def050456883ea81b8deddfa7
+      internalID: 7557879704207979911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD (SpaceApps)_0
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 1716
+        width: 1691
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6750e94e94f7425b86bc31d400222ed
+      internalID: -708192916512916048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: back
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 3156
+        width: 1159
+        height: 353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1abb11cbcd00f4e50a440dbaeeb66090
+      internalID: 1187961194834725857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instructions
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 2449
+        width: 493
+        height: 491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae9ca95ebd2a4374922220c7c07c248
+      internalID: 521610478920628516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShowInfo
+      rect:
+        serializedVersion: 2
+        x: 2217
+        y: 2103
+        width: 243
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b326bbb36cc814a9ebc4a3ae99582b50
+      internalID: -8108685599131614378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background_Info
+      rect:
+        serializedVersion: 2
+        x: 2601
+        y: 1564
+        width: 1246
+        height: 1398
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d9640f095414e6b8de17505dd2612d
+      internalID: 6424794140563306534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Footer
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 0
+        width: 3635
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3534a189c4a084a3e9cb48a5ab111484
+      internalID: -6661618111903677853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: eaf93d5b4d8c4420ea65becd87cb5cb9
     internalID: 0
     vertices: []
     indices: 
