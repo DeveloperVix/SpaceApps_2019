@@ -36,7 +36,7 @@ public class GM_ARGame : MonoBehaviour
     void Start()
     {
         instance = this; //Singleton
-        
+
         curImgTargetContact = new List<GameObject>();
         orderedTargets = new List<GameObject>();
 
@@ -149,8 +149,27 @@ public class GM_ARGame : MonoBehaviour
                 {
                     totalCollision++;
                 }
+            } 
+        }
+
+        int countMatches = 0;
+        for (int i = 0; i < orderedTargets.Count; i++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                if (orderedTargets[i].transform.GetChild(y).GetComponent<MatchAttributes>().match &&
+                    orderedTargets[i].transform.GetChild(y).GetComponent<MatchAttributes>().parentName != null)
+                {
+                    countMatches++;
+                    if(countMatches == 2)
+                    {
+                        modelSatellite.transform.SetParent(orderedTargets[i].transform);
+                        modelSatellite.transform.localPosition = new Vector3(0f,modelSatellite.transform.localPosition.y, 0f);
+                    }
+                    
+                } 
             }
-            
+            countMatches = 0; 
         }
 
         //Ahora de la lista ordenada, elegir de forma aleatoria una carta
@@ -196,15 +215,18 @@ public class GM_ARGame : MonoBehaviour
         if(curCollision >= totalCollision)
         {
             menusAR[0].SetActive(true);
-            curCollision = 0;
+            modelSatellite.SetActive(true);
+            curCollision = totalCollision;
         }
     }
 
     public void LessCountColision()
     {
         curCollision--;
+        menusAR[0].SetActive(false);
+        modelSatellite.SetActive(false);
         if(curCollision < 0)
-        {
+        { 
             curCollision = 0;
         }
     }

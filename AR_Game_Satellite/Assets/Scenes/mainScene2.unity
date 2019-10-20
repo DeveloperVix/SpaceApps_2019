@@ -564,6 +564,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 963194229}
+    - target: {fileID: 1479955220, guid: 0bea7817576e34da08ea633f6ad041e5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bea7817576e34da08ea633f6ad041e5, type: 3}
 --- !u!1 &963194225
@@ -663,6 +667,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadUI: {fileID: 1479955220}
+--- !u!1 &1394538220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: fbf67ba3bab36094c876e537226b6ede,
+    type: 3}
+  m_PrefabInstance: {fileID: 808189566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1394538221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394538220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234d4a3f6e30a488c9f4f15d6730513e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0.66
 --- !u!1 &1479955220 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1479955220, guid: 0bea7817576e34da08ea633f6ad041e5,
