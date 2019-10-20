@@ -23,6 +23,8 @@ public class GM_ARGame : MonoBehaviour
     public int totalCollision = 0;
     public int curCollision = 0;
 
+    public GameObject modelSatellite;
+
     /*
         0 = content info model complete
      */
@@ -34,9 +36,7 @@ public class GM_ARGame : MonoBehaviour
     void Start()
     {
         instance = this; //Singleton
-
         
-
         curImgTargetContact = new List<GameObject>();
         orderedTargets = new List<GameObject>();
 
