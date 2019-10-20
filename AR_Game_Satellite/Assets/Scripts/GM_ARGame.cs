@@ -15,7 +15,7 @@ public class GM_ARGame : MonoBehaviour
 
     public List<GameObject> curImgTargetContact; //The list of objects that are colliding
 
-    [Header("The imagr targets")]
+    [Header("The image targets satellite")]
     public List<GameObject> theTargets;
 
     public List<GameObject> orderedTargets;
@@ -24,6 +24,17 @@ public class GM_ARGame : MonoBehaviour
     public int curCollision = 0;
 
     public GameObject modelSatellite;
+
+
+    [Header("The image targets constelation")]
+    public List<GameObject> theTargetsConstelation;
+
+    public List<GameObject> orderedTargetsConstelation;
+
+    public int totalCollisionConstelation = 0;
+    public int curCollisionConstelation = 0;
+
+    public GameObject imgConstelation;
 
     /*
         0 = content info model complete
@@ -37,12 +48,12 @@ public class GM_ARGame : MonoBehaviour
     {
         instance = this; //Singleton
 
+#region IMG Sattellite
         curImgTargetContact = new List<GameObject>();
         orderedTargets = new List<GameObject>();
 
         //obtener de forma aleatoria la primera carta y aniadirla a la lista de
         //targets ordenados
-
 
         int twice = 2;
         for (int i = 0; i < theTargets.Count; i++)
@@ -183,6 +194,154 @@ public class GM_ARGame : MonoBehaviour
         //Sumar 1 al total de matches por hacer, hay que tener 5
         //Ya tiene establecido
         //Escoger otra carta para hacer match
+    #endregion
+    
+    #region IMG Constelation
+        orderedTargetsConstelation = new List<GameObject>();
+
+        //obtener de forma aleatoria la primera carta y aniadirla a la lista de
+        //targets ordenados
+
+        twice = 2;
+        for (int i = 0; i < theTargetsConstelation.Count; i++)
+        {
+            //Elegir de forma aleatoria cualquiera de sus colliders hijos para
+            //establecer cual de ellos hara match
+            while(twice > 0)
+            {
+                int randCol = Random.Range(0, 4);
+                MatchAttributes temp = theTargetsConstelation[i].transform.GetChild(randCol).GetComponent<MatchAttributes>();
+                if (!temp.match)
+                {
+                    Debug.LogError("Colisionador seleccionado: " + randCol);
+                    theTargetsConstelation[i].transform.GetChild(randCol).GetComponent<MatchAttributes>().match = true;
+                    twice--;
+                }
+            }
+            twice = 2;
+
+        }
+
+
+        rand = Random.Range(0, theTargetsConstelation.Count);
+        targetSelected = theTargetsConstelation[rand];
+        Debug.LogError("Tarjeta seleccionada: " + targetSelected.name);
+        orderedTargetsConstelation.Add(targetSelected);
+        theTargetsConstelation.Remove(targetSelected);
+
+        
+
+        /*int randOredered = Random.Range(0, orderedTargets.Count);
+        GameObject orderTargetSelected = orderedTargets[randOredered];
+        Debug.LogError("Hare match con: " + orderTargetSelected.name);*/
+
+        checkOtherCard = true;
+        cardsMatched = 0;
+        randColSelected = 0;
+        while (checkOtherCard)
+        {
+            if(theTargetsConstelation.Count == 0)
+            {
+                checkOtherCard = false;
+            }
+            else
+            {
+                rand = Random.Range(0, theTargetsConstelation.Count);
+                targetSelected = theTargetsConstelation[rand];
+                Debug.LogError("\nTarjeta seleccionada: " + targetSelected.name);
+
+                int randOredered = Random.Range(0, orderedTargetsConstelation.Count);
+                GameObject orderTargetSelected = orderedTargetsConstelation[randOredered];
+                Debug.LogError("Hare match con: " + orderTargetSelected.name);
+
+                for (int i = 0; i < orderTargetSelected.transform.childCount-3; i++)
+                {
+                    if (orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().match &&
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName == null)
+                    {
+                        Debug.LogError("Hijo disponible de tarjeta ordenada: "+ orderTargetSelected.transform.GetChild(i).name);
+
+                        bool untilDone = false;
+                        while(!untilDone)
+                        {
+                            //Elegir de forma aleatoria cualquiera de sus colliders hijos para
+                            //establecer cual de ellos hara match
+                            randColSelected = Random.Range(0, targetSelected.transform.childCount-3);
+                            
+                            if (!targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match)
+                            {
+                                Debug.LogError("Colisionador seleccionado: " + randColSelected);
+                                targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match = true;
+                                //times--;
+                                untilDone = true;
+                            }
+                        }
+
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName = targetSelected.name;
+
+                        orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().colMatchName = targetSelected.transform.GetChild(randColSelected).name;
+
+                        targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().parentName = orderTargetSelected.name;
+                        targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().colMatchName = orderTargetSelected.transform.GetChild(i).name;
+
+                        orderedTargetsConstelation.Add(targetSelected);
+                        theTargetsConstelation.Remove(targetSelected);
+
+                        cardsMatched++;
+                        i = orderTargetSelected.transform.childCount;
+                    }
+                    if (i == orderTargetSelected.transform.childCount - 3)
+                    {
+                        Debug.LogError("Ya estan ocupados todos los hijos");
+                    }
+                }
+            }  
+        }
+
+        for (int i = 0; i < orderedTargets.Count; i++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                if (orderedTargetsConstelation[i].transform.GetChild(y).GetComponent<MatchAttributes>().match &&
+                    orderedTargetsConstelation[i].transform.GetChild(y).GetComponent<MatchAttributes>().parentName != null)
+                {
+                    totalCollisionConstelation++;
+                }
+            } 
+        }
+
+        countMatches = 0;
+        for (int i = 0; i < orderedTargetsConstelation.Count; i++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                if (orderedTargetsConstelation[i].transform.GetChild(y).GetComponent<MatchAttributes>().match &&
+                    orderedTargetsConstelation[i].transform.GetChild(y).GetComponent<MatchAttributes>().parentName != null)
+                {
+                    countMatches++;
+                    if(countMatches == 2)
+                    {
+                        imgConstelation.transform.SetParent(orderedTargetsConstelation[i].transform);
+                        imgConstelation.transform.localPosition = new Vector3(0f,imgConstelation.transform.localPosition.y, 0f);
+                    }
+                    
+                } 
+            }
+            countMatches = 0; 
+        }
+
+        //Ahora de la lista ordenada, elegir de forma aleatoria una carta
+        //Teniendo la carta elegida, escoger otra carta de la lista y preguntar si el collider hijo
+        //que hara match no tiene establecido la carta con quien hara match
+        //ciclo while(mientras los 5 matches no esten establecidos, corre el ciclo)
+        //Si no lo tiene establecido
+        //ponerlo como carta que hara match (parentName), en ambas cartas
+        //poner el nombre del collider hijo (colMatchName), en ambas cartas
+        //Ahora de la lista ordenada, elegir cual carta no tiene match 
+        //Sumar 1 al total de matches por hacer, hay que tener 5
+        //Ya tiene establecido
+        //Escoger otra carta para hacer match
+    #endregion
     }
 
 
@@ -208,26 +367,53 @@ public class GM_ARGame : MonoBehaviour
 
 
 
-    public void CountColision()
+    public void CountColision(bool satellite)
     {
-        curCollision++;
-
-        if(curCollision >= totalCollision)
+        if(satellite)
         {
-            menusAR[0].SetActive(true);
-            modelSatellite.SetActive(true);
-            curCollision = totalCollision;
+            curCollision++;
+            if(curCollision >= totalCollision)
+            {
+                menusAR[0].SetActive(true);
+                modelSatellite.SetActive(true);
+                curCollision = totalCollision;
+            }
         }
+        else
+        {
+            curCollisionConstelation++;
+            if(curCollisionConstelation >= totalCollisionConstelation)
+            {
+                //menusAR[0].SetActive(true);
+                imgConstelation.SetActive(true);
+                curCollisionConstelation = totalCollisionConstelation;
+            }
+        }
+        
     }
 
-    public void LessCountColision()
+    public void LessCountColision(bool satellite)
     {
-        curCollision--;
-        menusAR[0].SetActive(false);
-        modelSatellite.SetActive(false);
-        if(curCollision < 0)
-        { 
-            curCollision = 0;
+        if(satellite)
+        {
+            curCollision--;
+            menusAR[0].SetActive(false);
+            modelSatellite.SetActive(false);
+            if(curCollision < 0)
+            { 
+                curCollision = 0;
+            }
         }
+        else
+        {
+            curCollisionConstelation--;
+            //menusAR[0].SetActive(false);
+            imgConstelation.SetActive(false);
+            if(curCollisionConstelation < 0)
+            { 
+                curCollisionConstelation = 0;
+            }
+        }
+        
     }
 }

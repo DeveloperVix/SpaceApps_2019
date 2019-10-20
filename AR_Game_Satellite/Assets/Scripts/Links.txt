@@ -1,0 +1,5 @@
+https://jwst.nasa.gov/content/observatory/instruments/index.html 				 	-------> JWST INFO
+https://jwst.nasa.gov/content/status/index.html                   					-------> distribucion y estatus
+https://jwst.nasa.gov/images/jwst_back_view.jpg                   					-------> Estructura
+https://data.nasa.gov/Management-Operations/NASA-3D-Models-James-Webb-Space-Telescope/kh2u-p8gq   	-----------> 3d Model
+https://nasa3d.arc.nasa.gov/detail/jwst                                                                 --------> Descarga del modelo

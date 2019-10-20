@@ -10,6 +10,8 @@ public class DetectionImg : MonoBehaviour
 
     public SpriteRenderer spriteFeedback;
 
+    public bool satellite = true;
+
     private void Awake()
     {
         matchAttributes = gameObject.AddComponent<MatchAttributes>();
@@ -32,7 +34,7 @@ public class DetectionImg : MonoBehaviour
                 Debug.Log("Colisiono con: " + obj.gameObject.name);
                 GM_ARGame.Instance.curImgTargetContact.Add(obj.gameObject); //Add to the list of the obj
                 //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
-                GM_ARGame.Instance.CountColision();
+                GM_ARGame.Instance.CountColision(satellite);
             }
         }
     }
@@ -52,7 +54,7 @@ public class DetectionImg : MonoBehaviour
                 //Remove the object from the list of objects that are colliding
                 GM_ARGame.Instance.curImgTargetContact.Remove(obj.gameObject);
                 //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
-                GM_ARGame.Instance.LessCountColision();
+                GM_ARGame.Instance.LessCountColision(satellite);
             }
         }
     }
