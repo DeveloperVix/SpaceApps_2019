@@ -65,13 +65,5 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
     public void CloseCanvasBtn()
     {
         canvasInfo.GetComponent<Animator>().Play("Exit_Canvas");
-        StartCoroutine(AfterHide());
     }
-
-    IEnumerator AfterHide()
-    {
-        yield return new WaitForSeconds(1f);
-        canvasInfo.SetActive(false);
-    }
-
 }

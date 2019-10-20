@@ -96,7 +96,7 @@ public class GM_ARGame : MonoBehaviour
                 GameObject orderTargetSelected = orderedTargets[randOredered];
                 Debug.LogError("Hare match con: " + orderTargetSelected.name);
 
-                for (int i = 0; i < orderTargetSelected.transform.childCount-1; i++)
+                for (int i = 0; i < orderTargetSelected.transform.childCount-3; i++)
                 {
                     if (orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().match &&
                         orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName == null)
@@ -108,7 +108,7 @@ public class GM_ARGame : MonoBehaviour
                         {
                             //Elegir de forma aleatoria cualquiera de sus colliders hijos para
                             //establecer cual de ellos hara match
-                            randColSelected = Random.Range(0, targetSelected.transform.childCount-1);
+                            randColSelected = Random.Range(0, targetSelected.transform.childCount-3);
                             
                             if (!targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match)
                             {
@@ -132,7 +132,7 @@ public class GM_ARGame : MonoBehaviour
                         cardsMatched++;
                         i = orderTargetSelected.transform.childCount;
                     }
-                    if (i == orderTargetSelected.transform.childCount - 1)
+                    if (i == orderTargetSelected.transform.childCount - 3)
                     {
                         Debug.LogError("Ya estan ocupados todos los hijos");
                     }

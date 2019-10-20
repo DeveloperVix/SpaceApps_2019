@@ -8,10 +8,15 @@ public class DetectionImg : MonoBehaviour
 
     public string nameParent;
 
+    public SpriteRenderer spriteFeedback;
+
     private void Awake()
     {
         matchAttributes = gameObject.AddComponent<MatchAttributes>();
         nameParent = transform.parent.name;
+
+        spriteFeedback = GetComponentInChildren<SpriteRenderer>();
+        spriteFeedback.color = Color.red;
     }
 
     //We need to know when the part of the target is colliding with other image
@@ -23,6 +28,7 @@ public class DetectionImg : MonoBehaviour
             if (obj.GetComponent<MatchAttributes>().parentName == nameParent)
             {
                 matchAttributes.colliding = true;
+                spriteFeedback.color = Color.green;
                 Debug.Log("Colisiono con: " + obj.gameObject.name);
                 GM_ARGame.Instance.curImgTargetContact.Add(obj.gameObject); //Add to the list of the obj
                 //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
@@ -42,6 +48,7 @@ public class DetectionImg : MonoBehaviour
             if (obj.GetComponent<MatchAttributes>().parentName == nameParent)
             {
                 matchAttributes.colliding = false;
+                spriteFeedback.color = Color.red;
                 //Remove the object from the list of objects that are colliding
                 GM_ARGame.Instance.curImgTargetContact.Remove(obj.gameObject);
                 //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
