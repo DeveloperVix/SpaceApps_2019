@@ -8,11 +8,7 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
 
     public bool isDetected = false;
 
-    public MatchAttributes[] colliderChild;
-
-    [TextArea(4,15)]
-    public string txtInfo;
-
+    public GameObject canvasInfo;
 
     protected TrackableBehaviour mTrackableBehaviour;
     protected TrackableBehaviour.Status m_PreviousStatus;
@@ -25,7 +21,7 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
         if (mTrackableBehaviour)
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
 
-        colliderChild = GetComponentsInChildren<MatchAttributes>();
+        canvasInfo.SetActive(false);
     }
 
     public void OnTrackableStateChanged(
@@ -44,7 +40,6 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             isDetected = true;
-            Debug.LogError("Siempre activo");
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
@@ -60,17 +55,23 @@ public class StatusImg : MonoBehaviour, ITrackableEventHandler
         }
     }
 
-    public void HideText()
-    {
-        int totalCollision = 0;
-        for (int i = 0; i < colliderChild.Length; i++)
-        {
-            if(colliderChild[i].colliding)
-            {
-                totalCollision++;
-            }
-        }
-        Debug.LogError("Total de collisiones");
 
+    public void ShowInfo()
+    {
+        canvasInfo.SetActive(true);
+        canvasInfo.GetComponent<Animator>().Play("Enter_Canvas");
     }
+
+    public void CloseCanvasBtn()
+    {
+        canvasInfo.GetComponent<Animator>().Play("Exit_Canvas");
+        StartCoroutine(AfterHide());
+    }
+
+    IEnumerator AfterHide()
+    {
+        yield return new WaitForSeconds(1f);
+        canvasInfo.SetActive(false);
+    }
+
 }

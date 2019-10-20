@@ -18,26 +18,36 @@ public class DetectionImg : MonoBehaviour
     void OnTriggerEnter(Collider obj) 
     {
         //NOTE: is necessary to know if it is another image target
-        if(obj.GetComponent<MatchAttributes>().parentName != null)
+        if (obj.GetComponent<MatchAttributes>().parentName != null)
         {
-            if(obj.GetComponent<MatchAttributes>().parentName == nameParent)
+            if (obj.GetComponent<MatchAttributes>().parentName == nameParent)
             {
                 matchAttributes.colliding = true;
                 Debug.Log("Colisiono con: " + obj.gameObject.name);
                 GM_ARGame.Instance.curImgTargetContact.Add(obj.gameObject); //Add to the list of the obj
-                GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
-            } 
+                //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
+                GM_ARGame.Instance.CountColision();
+            }
         }
     }
 
     //If the targets stop colliding 
     private void OnTriggerExit(Collider obj)
-    {
-        matchAttributes.colliding = false;
-        //Remove the object from the list of objects that are colliding
-        GM_ARGame.Instance.curImgTargetContact.Remove(obj.gameObject);
+    {   
         //Disable the text
-        GM_ARGame.Instance.DisableText();
+        //GM_ARGame.Instance.DisableText();
+
+        if (obj.GetComponent<MatchAttributes>().parentName != null)
+        {
+            if (obj.GetComponent<MatchAttributes>().parentName == nameParent)
+            {
+                matchAttributes.colliding = false;
+                //Remove the object from the list of objects that are colliding
+                GM_ARGame.Instance.curImgTargetContact.Remove(obj.gameObject);
+                //GM_ARGame.Instance.TargetsCollision();                      //Call the method to show the text
+                GM_ARGame.Instance.LessCountColision();
+            }
+        }
     }
 }
 

@@ -20,7 +20,14 @@ public class GM_ARGame : MonoBehaviour
 
     public List<GameObject> orderedTargets;
 
-    public MatchAttributes[] colliderChild;
+    public int totalCollision = 0;
+    public int curCollision = 0;
+
+    /*
+        0 = content info model complete
+     */
+    [Header("UI AR")]
+    public GameObject[] menusAR;
 
 
     // Start is called before the first frame update
@@ -45,7 +52,8 @@ public class GM_ARGame : MonoBehaviour
             while(twice > 0)
             {
                 int randCol = Random.Range(0, 4);
-                if (!theTargets[i].transform.GetChild(randCol).GetComponent<MatchAttributes>().match)
+                MatchAttributes temp = theTargets[i].transform.GetChild(randCol).GetComponent<MatchAttributes>();
+                if (!temp.match)
                 {
                     Debug.LogError("Colisionador seleccionado: " + randCol);
                     theTargets[i].transform.GetChild(randCol).GetComponent<MatchAttributes>().match = true;
@@ -88,7 +96,7 @@ public class GM_ARGame : MonoBehaviour
                 GameObject orderTargetSelected = orderedTargets[randOredered];
                 Debug.LogError("Hare match con: " + orderTargetSelected.name);
 
-                for (int i = 0; i < orderTargetSelected.transform.childCount; i++)
+                for (int i = 0; i < orderTargetSelected.transform.childCount-1; i++)
                 {
                     if (orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().match &&
                         orderTargetSelected.transform.GetChild(i).GetComponent<MatchAttributes>().parentName == null)
@@ -100,7 +108,7 @@ public class GM_ARGame : MonoBehaviour
                         {
                             //Elegir de forma aleatoria cualquiera de sus colliders hijos para
                             //establecer cual de ellos hara match
-                            randColSelected = Random.Range(0, targetSelected.transform.childCount);
+                            randColSelected = Random.Range(0, targetSelected.transform.childCount-1);
                             
                             if (!targetSelected.transform.GetChild(randColSelected).GetComponent<MatchAttributes>().match)
                             {
@@ -132,7 +140,18 @@ public class GM_ARGame : MonoBehaviour
             }  
         }
 
-
+        for (int i = 0; i < orderedTargets.Count; i++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                if (orderedTargets[i].transform.GetChild(y).GetComponent<MatchAttributes>().match &&
+                    orderedTargets[i].transform.GetChild(y).GetComponent<MatchAttributes>().parentName != null)
+                {
+                    totalCollision++;
+                }
+            }
+            
+        }
 
         //Ahora de la lista ordenada, elegir de forma aleatoria una carta
         //Teniendo la carta elegida, escoger otra carta de la lista y preguntar si el collider hijo
@@ -145,14 +164,6 @@ public class GM_ARGame : MonoBehaviour
         //Sumar 1 al total de matches por hacer, hay que tener 5
         //Ya tiene establecido
         //Escoger otra carta para hacer match
-
-        for (int i = 0; i < orderedTargets.Count; i++)
-        {
-           colliderChild = GetComponentsInChildren<MatchAttributes>();
-
-            orderedTargets[i].GetComponentsInChildren<MatchAttributes>();
-        }
-
     }
 
 
@@ -178,17 +189,23 @@ public class GM_ARGame : MonoBehaviour
 
 
 
-    public void HideText()
+    public void CountColision()
     {
-        int totalCollision = 0;
-        for (int i = 0; i < colliderChild.Length; i++)
-        {
-            if (colliderChild[i].colliding)
-            {
-                totalCollision++;
-            }
-        }
-        Debug.LogError("Total de collisiones");
+        curCollision++;
 
+        if(curCollision >= totalCollision)
+        {
+            menusAR[0].SetActive(true);
+            curCollision = 0;
+        }
+    }
+
+    public void LessCountColision()
+    {
+        curCollision--;
+        if(curCollision < 0)
+        {
+            curCollision = 0;
+        }
     }
 }
