@@ -397,8 +397,8 @@ public class GM_ARGame : MonoBehaviour
         if(satellite)
         {
             curCollision--;
-            menusAR[0].SetActive(false);
-            modelSatellite.SetActive(false);
+            //menusAR[0].SetActive(false);
+            //modelSatellite.SetActive(false);
             if(curCollision < 0)
             { 
                 curCollision = 0;
@@ -408,7 +408,7 @@ public class GM_ARGame : MonoBehaviour
         {
             curCollisionConstelation--;
             //menusAR[0].SetActive(false);
-            imgConstelation.SetActive(false);
+            //imgConstelation.SetActive(false);
             if(curCollisionConstelation < 0)
             { 
                 curCollisionConstelation = 0;
